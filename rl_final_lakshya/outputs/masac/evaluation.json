@@ -1,0 +1,15 @@
+{
+  "algo": "masac",
+  "seed": 42,
+  "mean_reward": -2610.9031069062153,
+  "std_reward": 591.4181496770873,
+  "mean_electricity_cost": 0.0,
+  "mean_carbon_emissions": 0.0,
+  "mean_ramping": 0.0,
+  "mean_load_factor": 0.0,
+  "mean_daily_peak": 0.0,
+  "mean_comfort_violation": 0.0,
+  "num_eval_episodes": 5,
+  "best_checkpoint": "outputs/masac/best_model.pt",
+  "training_wall_time_seconds": 0.0
+}

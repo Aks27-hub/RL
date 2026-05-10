@@ -1,0 +1,29 @@
+{
+  "algo": "masac",
+  "seed": 42,
+  "env_schema": "citylearn_challenge_2022_phase_1",
+  "num_episodes": 150,
+  "max_steps_per_episode": null,
+  "hidden_dims": [
+    256,
+    256
+  ],
+  "lr": 0.0003,
+  "gamma": 0.99,
+  "batch_size": 256,
+  "replay_buffer_size": 100000,
+  "device": "auto",
+  "checkpoint_interval": 25,
+  "eval_interval": 15,
+  "eval_episodes": 3,
+  "early_stopping_patience": 30,
+  "algo_specific": {
+    "tau": 0.005,
+    "alpha_init": 0.2,
+    "auto_alpha": true,
+    "target_entropy_scale": 1.0,
+    "actor_update_freq": 1,
+    "grad_clip": 5.0,
+    "warmup_steps": 1000
+  }
+}

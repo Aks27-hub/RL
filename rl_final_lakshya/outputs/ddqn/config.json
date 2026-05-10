@@ -1,0 +1,28 @@
+{
+  "algo": "ddqn",
+  "seed": 42,
+  "env_schema": "citylearn_challenge_2022_phase_1",
+  "num_episodes": 150,
+  "max_steps_per_episode": null,
+  "hidden_dims": [
+    256,
+    256
+  ],
+  "lr": 0.0003,
+  "gamma": 0.99,
+  "batch_size": 256,
+  "replay_buffer_size": 100000,
+  "device": "auto",
+  "checkpoint_interval": 25,
+  "eval_interval": 15,
+  "eval_episodes": 3,
+  "early_stopping_patience": 30,
+  "algo_specific": {
+    "epsilon_start": 1.0,
+    "epsilon_end": 0.05,
+    "epsilon_decay_steps": 50000,
+    "target_update_freq": 500,
+    "n_bins": 5,
+    "grad_clip": 10.0
+  }
+}

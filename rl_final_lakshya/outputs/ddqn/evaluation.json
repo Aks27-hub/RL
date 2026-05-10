@@ -1,0 +1,15 @@
+{
+  "algo": "ddqn",
+  "seed": 42,
+  "mean_reward": -2858.4820458845375,
+  "std_reward": 598.2777709338073,
+  "mean_electricity_cost": 0.0,
+  "mean_carbon_emissions": 0.0,
+  "mean_ramping": 0.0,
+  "mean_load_factor": 0.0,
+  "mean_daily_peak": 0.0,
+  "mean_comfort_violation": 0.0,
+  "num_eval_episodes": 5,
+  "best_checkpoint": "outputs/ddqn/best_model.pt",
+  "training_wall_time_seconds": 0.0
+}

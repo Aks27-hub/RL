@@ -1,0 +1,17 @@
+{
+  "algo": "masac",
+  "seed": 42,
+  "checkpoint": "outputs/masac/best_model.pt",
+  "total_steps": 719,
+  "episode_reward": -2600.8426243361746,
+  "metrics": {
+    "reward": -2600.8426243361746,
+    "electricity_cost": 0.0,
+    "carbon_emissions": 0.0,
+    "ramping": 0.0,
+    "load_factor": 0.0,
+    "daily_peak": 0.0,
+    "comfort_violation": 0.0
+  },
+  "num_step_details": 719
+}

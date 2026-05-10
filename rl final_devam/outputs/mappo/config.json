@@ -1,0 +1,46 @@
+{
+  "algorithm": "mappo",
+  "env": {
+    "n_buildings": 5,
+    "horizon": 720,
+    "eval_horizon": 8760,
+    "battery_capacity_kwh": 40.0,
+    "battery_max_power_kw": 10.0,
+    "charge_efficiency": 0.95,
+    "discharge_efficiency": 0.95,
+    "reward_scale": 0.2,
+    "seed": 42
+  },
+  "mappo": {
+    "hidden_dim": 256,
+    "central_hidden_dim": 512,
+    "clip_eps": 0.2,
+    "gamma": 0.99,
+    "gae_lambda": 0.95,
+    "actor_lr": 0.0003,
+    "critic_lr": 0.001,
+    "max_grad_norm": 0.5,
+    "update_epochs": 8,
+    "minibatch_size": 512,
+    "entropy_coef": 0.02,
+    "value_coef": 0.5,
+    "rollout_steps": 1024
+  },
+  "train": {
+    "max_episodes": 300,
+    "max_seconds": 5400.0,
+    "checkpoint_every": 25,
+    "log_every": 5,
+    "seed": 42,
+    "device": "auto",
+    "early_stop_patience": 40,
+    "early_stop_delta": 0.005,
+    "reward_norm": true,
+    "reward_norm_clip": 10.0
+  },
+  "eval": {
+    "eval_episodes": 3,
+    "eval_seed": 999,
+    "eval_horizon": 8760
+  }
+}

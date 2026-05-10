@@ -1,0 +1,10 @@
+{
+  "carbon_emissions": 0.0,
+  "comfort_violation": 0.0,
+  "daily_peak": 0.0,
+  "electricity_cost": 0.0,
+  "load_factor": 0.0,
+  "ramping": 0.0,
+  "reward": -6356.266780303583,
+  "reward_per_step": -0.7256840712756688
+}

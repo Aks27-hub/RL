@@ -1,0 +1,24 @@
+{
+  "actor_lr": 0.0003,
+  "checkpoint_every": 5,
+  "clip_eps": 0.2,
+  "critic_lr": 0.001,
+  "entropy_coef": 0.01,
+  "env": {
+    "max_steps": 720,
+    "normalize_obs": true,
+    "schema_path": "citylearn_challenge_2022_phase_1",
+    "seed": 42
+  },
+  "episodes": 300,
+  "eval_episodes": 1,
+  "eval_interval": 5,
+  "eval_max_steps": null,
+  "gae_lambda": 0.95,
+  "gamma": 0.99,
+  "minibatch_size": 256,
+  "output_dir": "outputs/marlisa",
+  "update_epochs": 5,
+  "update_steps": 1024,
+  "value_coef": 0.5
+}

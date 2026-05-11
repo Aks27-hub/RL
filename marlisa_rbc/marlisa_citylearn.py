@@ -192,7 +192,7 @@ class MARLISATrainer:
                     joint_state_t = torch.tensor(joint_state, dtype=torch.float32, device=self.device).unsqueeze(0)
                     value = float(self.critic(joint_state_t).squeeze().cpu().item())
 
-                step_out = self.env.step(_format_actions(actions))
+                step_out = self.env.step(_format_actions(actions, self.env.action_space))
                 if isinstance(step_out, tuple) and len(step_out) == 5:
                     next_obs, rewards, terminated, truncated, _ = step_out
                 else:

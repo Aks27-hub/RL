@@ -5,6 +5,6 @@
   "electricity_cost": 0.0,
   "load_factor": 0.0,
   "ramping": 0.0,
-  "reward": -6114.885556475304,
-  "reward_per_step": -0.6981259911491384
+  "reward": -5982.712850012411,
+  "reward_per_step": -0.6830360600539344
 }

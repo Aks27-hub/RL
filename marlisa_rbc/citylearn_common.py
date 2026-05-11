@@ -10,7 +10,7 @@ import numpy as np
 
 @dataclass
 class CityLearnEnvConfig:
-    schema_path: str
+    schema_path: str = "citylearn_challenge_2022_phase_1"
     seed: int = 42
     max_steps: Optional[int] = None
     normalize_obs: bool = True
@@ -77,11 +77,25 @@ class ObsProcessor:
         return np.array(low, dtype=np.float32), np.array(high, dtype=np.float32)
 
     def transform(self, obs: Any) -> np.ndarray:
+        if isinstance(obs, (list, tuple)) and not isinstance(obs, np.ndarray):
+            elements = [to_np_obs(item) for item in obs]
+            try:
+                arr = np.stack(elements, axis=0)
+            except ValueError:
+                return [self._normalize_array(item) for item in elements]
+            return self._normalize_array(arr)
+
         arr = to_np_obs(obs)
+        return self._normalize_array(arr)
+
+    def _normalize_array(self, arr: np.ndarray) -> np.ndarray:
         if not self.normalize or self.low is None or self.high is None:
-            return arr
-        low = np.broadcast_to(self.low, arr.shape)
-        high = np.broadcast_to(self.high, arr.shape)
+            return arr.astype(np.float32)
+        try:
+            low = np.broadcast_to(self.low, arr.shape)
+            high = np.broadcast_to(self.high, arr.shape)
+        except ValueError:
+            return arr.astype(np.float32)
         span = np.where(np.isfinite(high - low), high - low, 1.0)
         scaled = (arr - low) / np.clip(span, 1e-6, None)
         scaled = np.clip(scaled, 0.0, 1.0)
@@ -186,7 +200,7 @@ def evaluate_policy(
 
     while not done:
         proc_obs = obs_processor.transform(obs)
-        actions = _format_actions(policy_fn(proc_obs, steps))
+        actions = _format_actions(policy_fn(proc_obs, steps), getattr(env, "action_space", None))
         step_out = env.step(actions)
         if isinstance(step_out, tuple) and len(step_out) == 5:
             next_obs, rewards, terminated, truncated, info = step_out
@@ -216,14 +230,39 @@ def _reset_env(env: Any, seed: int):
     return result
 
 
-def _format_actions(actions: Any):
+def _format_actions(actions: Any, action_space: Any = None):
+    action_dims = None
+    if action_space is not None:
+        if isinstance(action_space, (list, tuple)):
+            action_dims = [int(np.prod(space.shape)) for space in action_space]
+        else:
+            action_dims = int(np.prod(action_space.shape))
+
     if isinstance(actions, np.ndarray):
         if actions.ndim == 1:
-            return [[float(a)] for a in actions]
+            if action_dims is None:
+                return [[float(a)] for a in actions]
+            return _expand_scalar_actions(actions.tolist(), action_dims)
         return actions.tolist()
     if isinstance(actions, list):
         if len(actions) == 0:
             return actions
         if isinstance(actions[0], (float, int, np.floating, np.integer)):
-            return [[float(a)] for a in actions]
+            if action_dims is None:
+                return [[float(a)] for a in actions]
+            return _expand_scalar_actions(actions, action_dims)
     return actions
+
+
+def _expand_scalar_actions(actions: List[float], action_dims: Any):
+    expanded = []
+    if isinstance(action_dims, int):
+        dims = [action_dims for _ in range(len(actions))]
+    else:
+        dims = action_dims
+    for idx, value in enumerate(actions):
+        dim = dims[idx] if idx < len(dims) else 1
+        vec = [0.0 for _ in range(dim)]
+        vec[0] = float(value)
+        expanded.append(vec)
+    return expanded

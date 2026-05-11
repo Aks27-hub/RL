@@ -9,7 +9,6 @@ from rbc_citylearn import RBCConfig, RBCPolicy
 
 def build_arg_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Evaluate RBC on CityLearn")
-    parser.add_argument("--schema", required=True, help="Path to CityLearn schema.json")
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--max-steps", type=int, default=None)
     parser.add_argument("--output-dir", type=str, default="outputs/rbc")
@@ -20,7 +19,7 @@ def main():
     parser = build_arg_parser()
     args = parser.parse_args()
 
-    env_cfg = CityLearnEnvConfig(schema_path=args.schema, seed=args.seed, max_steps=args.max_steps)
+    env_cfg = CityLearnEnvConfig(seed=args.seed, max_steps=args.max_steps)
     env = make_citylearn_env(env_cfg.schema_path, env_cfg.seed, central_agent=False)
     obs_processor = ObsProcessor(env.observation_space, normalize=env_cfg.normalize_obs)
 

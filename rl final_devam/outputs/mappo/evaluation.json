@@ -1,9 +1,0 @@
-{
-  "final_reward": -413.3645437321593,
-  "average_reward": -377.9632581507415,
-  "electricity_cost": 59367.36686713552,
-  "emissions": 80698.77978408213,
-  "runtime": 43.55525469779968,
-  "training_episodes": 300,
-  "evaluation_episodes": 3
-}

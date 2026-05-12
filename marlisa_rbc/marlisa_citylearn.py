@@ -350,7 +350,7 @@ class MARLISATrainer:
                 rows = list(csv.reader(f))
             if len(rows) > 1 and int(rows[-1][0]) == episode:
                 rows = rows[:-1]
-        with path.open("w", newline="", encoding="utf-8") as f:
+        with path.open("a", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
             if rows:
                 writer.writerows(rows)
@@ -362,7 +362,7 @@ class MARLISATrainer:
 def load_trainer(config_path: Optional[str], device: torch.device) -> MARLISATrainer:
     if config_path is None:
         raise ValueError("config_path is required")
-    from v1.citylearn_common import load_json
+    from citylearn_common import load_json
 
     cfg_data = load_json(Path(config_path))
     env_cfg = CityLearnEnvConfig(**cfg_data["env"])

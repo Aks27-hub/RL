@@ -26,7 +26,6 @@ def main():
 
     trainer = MARLISATrainer(cfg, device)
     trainer.train()
-    trainer.evaluate(save_json_out=True)
 
 
 if __name__ == "__main__":

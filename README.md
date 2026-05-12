@@ -1,4 +1,25 @@
+
 # RL: Multi-Agent Reinforcement Learning for CityLearn and Energy Management
+
+## Objective
+
+The primary objective of this project is to advance the development and evaluation of multi-agent reinforcement learning (MARL) algorithms for intelligent energy management in smart grids and building environments. By leveraging the CityLearn Challenge and other energy management scenarios, this project aims to:
+
+- Develop scalable and robust MARL agents capable of optimizing energy consumption, storage, and distribution across multiple buildings or agents.
+- Benchmark and compare the performance of different MARL algorithms and rule-based baselines in realistic, dynamic environments.
+- Provide reproducible research tools and clear visualizations to facilitate understanding and further innovation in the field of energy-efficient control.
+
+## Approach
+
+To achieve these objectives, the project is structured as follows:
+
+- Implements several state-of-the-art MARL algorithms (DDQN, MASAC, MAPPO, MARLISA) and integrates them with the CityLearn environment and other wrappers.
+- Provides modular code for training, evaluation, and inference, allowing easy experimentation and extension.
+- Includes rule-based controllers (RBC) as baselines for fair comparison.
+- Offers comprehensive logging, metrics, and visualization tools to analyze agent performance and learning dynamics.
+- Ensures reproducibility through organized scripts, configuration files, and environment requirements.
+
+Through this approach, the project serves as a platform for both research and practical application of MARL in energy management, supporting the community in developing smarter, more sustainable control strategies.
 
 This repository contains implementations and experiments for various multi-agent reinforcement learning (MARL) algorithms applied to energy management environments, including the CityLearn Challenge. The project is organized to support research, benchmarking, and visualization of MARL methods for smart grid and building control tasks.
 
@@ -45,3 +66,4 @@ RL/
 - `mappo/`: MAPPO agent, configs, models, outputs, and utilities.
 - `marlisa_rbc/`: MARLISA and RBC baselines for CityLearn, with scripts and results.
 - `env/`: Environment wrappers and requirements files for each setup.
+

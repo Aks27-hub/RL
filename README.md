@@ -56,9 +56,59 @@ RL/
 
 ## Getting Started
 
-1. Clone the repository.
-2. Install dependencies for the desired algorithm/environment (see `env/requirements_*.txt`).
-3. Run training or evaluation scripts in the respective folders.
+
+Follow these steps to set up and run experiments with this project:
+
+1. **Clone the repository**
+	```bash
+	git clone <repository-url>
+	cd RL
+	```
+
+2. **Set up a Python environment**
+	- It is recommended to use a virtual environment (venv, conda, or similar):
+	  ```bash
+	  python -m venv venv
+	  source venv/bin/activate  # On Windows: venv\Scripts\activate
+	  ```
+
+3. **Install dependencies**
+	- Choose the requirements file for your target algorithm/environment:
+	  ```bash
+	  pip install -r env/requirements_ddqn_masac.txt
+	  # or
+	  pip install -r env/requirements_mappo.txt
+	  # or
+	  pip install -r env/requirements_marlisa_rbc.txt
+	  ```
+
+4. **Run training or evaluation scripts**
+	- Navigate to the relevant folder and run the desired script. For example:
+	  ```bash
+	  # Train MARLISA agent
+	  cd marlisa_rbc
+	  python train_marlisa_citylearn.py --episodes 50 --output-dir outputs/marlisa
+
+	  # Train MAPPO agent
+	  cd ../mappo
+	  python train.py --config configs/config.py
+
+	  # Train DDQN agent
+	  cd ../ddqn_masac/ddqn
+	  python train.py --config config.json
+	  ```
+
+5. **Visualize results**
+	- Use the provided plotting scripts or notebooks to visualize training curves and evaluation metrics. For example:
+	  ```bash
+	  cd ../../plot_results.py
+	  python plot_results.py --input-dir ddqn_masac/outputs/ddqn
+	  ```
+
+6. **(Optional) Modify configurations**
+	- Edit the config files in each folder to change hyperparameters, environment settings, or output locations.
+
+For more details, see the README files in each subfolder.
 
 ## Folders
 

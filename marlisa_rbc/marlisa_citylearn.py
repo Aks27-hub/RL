@@ -170,6 +170,8 @@ class MARLISATrainer:
         reward_history: List[float] = []
         csv_path = self.output_dir / "training_curves.csv"
         self._write_training_header(csv_path)
+        best_reward = -1e9
+        no_improve_count = 0
 
         for ep in range(1, self.cfg.episodes + 1):
             obs = _reset_env(self.env, self.cfg.env.seed + ep)
@@ -219,6 +221,7 @@ class MARLISATrainer:
             reward_history.append(ep_reward)
             self.writer.add_scalar("train/episode_reward", ep_reward, ep)
             self._append_training_row(csv_path, ep, ep_reward, None)
+            current_reward = ep_reward
 
             if ep % self.cfg.eval_interval == 0:
                 eval_reward = self.evaluate(save_json_out=True)
@@ -232,6 +235,15 @@ class MARLISATrainer:
 
             if ep % self.cfg.checkpoint_every == 0:
                 self._save_checkpoint(ep)
+
+            if current_reward > best_reward + 1e-6:
+                best_reward = current_reward
+                no_improve_count = 0
+            else:
+                no_improve_count += 1
+                if no_improve_count >= 25:
+                    print(f"Early stopping at episode {ep} (no reward improvement in 25 episodes).")
+                    break
 
         self.writer.flush()
         self.writer.close()
@@ -344,18 +356,8 @@ class MARLISATrainer:
             writer.writerow(["episode", "reward", "eval_reward"])
 
     def _append_training_row(self, path: Path, episode: int, reward: float, eval_reward: Optional[float], overwrite_last: bool = False):
-        rows = []
-        if overwrite_last and path.exists():
-            with path.open("r", newline="", encoding="utf-8") as f:
-                rows = list(csv.reader(f))
-            if len(rows) > 1 and int(rows[-1][0]) == episode:
-                rows = rows[:-1]
         with path.open("a", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
-            if rows:
-                writer.writerows(rows)
-            else:
-                writer.writerow(["episode", "reward", "eval_reward"])
             writer.writerow([episode, f"{reward:.6f}", "" if eval_reward is None else f"{eval_reward:.6f}"])
 
 
